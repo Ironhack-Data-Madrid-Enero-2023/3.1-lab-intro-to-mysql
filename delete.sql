@@ -1,0 +1,1 @@
+delete from color where color_id = 'idwhite'
