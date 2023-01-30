@@ -1,0 +1,1 @@
+delete from invoices where `Cars_increment ID` = 4;
