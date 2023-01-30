@@ -1,0 +1,1 @@
+delete from cars where `CAR ID` = 4
