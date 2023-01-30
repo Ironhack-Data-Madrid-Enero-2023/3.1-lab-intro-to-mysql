@@ -1,0 +1,3 @@
+DELETE FROM
+cars
+WHERE ID = '3';
