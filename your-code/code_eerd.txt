@@ -1,0 +1,157 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
+
+-- -----------------------------------------------------
+-- Table `mydb`.`factura`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`factura` (
+  `idfactura` INT NOT NULL,
+  `numero_factura` VARCHAR(45) NULL,
+  `fechafactura` DATE NULL,
+  PRIMARY KEY (`idfactura`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`coches`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`coches` (
+  `idcoches` INT NOT NULL,
+  `vin` CHAR(17) NOT NULL,
+  `fabricante` VARCHAR(12) NOT NULL,
+  `modelo` VARCHAR(20) NOT NULL,
+  `año` YEAR(4) NOT NULL,
+  `color` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`idcoches`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`vendedor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`vendedor` (
+  `idvendedor` INT NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `tienda` VARCHAR(45) NOT NULL,
+  `factura_idfactura` INT NOT NULL,
+  PRIMARY KEY (`idvendedor`),
+  INDEX `fk_vendedor_factura1_idx` (`factura_idfactura` ASC) VISIBLE,
+  CONSTRAINT `fk_vendedor_factura1`
+    FOREIGN KEY (`factura_idfactura`)
+    REFERENCES `mydb`.`factura` (`idfactura`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`clientes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`clientes` (
+  `idclientes` INT NOT NULL,
+  `clientesID` INT NULL,
+  `nombre` VARCHAR(20) NOT NULL,
+  `telefono` VARCHAR(20) NOT NULL,
+  `email` VARCHAR(45) NULL,
+  `direccion` VARCHAR(100) NOT NULL,
+  `codigopostal` INT NOT NULL,
+  `ciudad` VARCHAR(45) NOT NULL,
+  `estado` VARCHAR(45) NOT NULL,
+  `pais` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idclientes`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`clientes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`clientes` (
+  `idclientes` INT NOT NULL,
+  `clientesID` INT NULL,
+  `nombre` VARCHAR(20) NOT NULL,
+  `telefono` VARCHAR(20) NOT NULL,
+  `email` VARCHAR(45) NULL,
+  `direccion` VARCHAR(100) NOT NULL,
+  `codigopostal` INT NOT NULL,
+  `ciudad` VARCHAR(45) NOT NULL,
+  `estado` VARCHAR(45) NOT NULL,
+  `pais` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idclientes`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`vendedores`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`vendedores` (
+  `idvendedores` INT NOT NULL,
+  `vendedoresID` INT NOT NULL,
+  `nombre` VARCHAR(25) NOT NULL,
+  `tienda` VARCHAR(25) NOT NULL,
+  PRIMARY KEY (`idvendedores`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`coches`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`coches` (
+  `idcoches` INT NOT NULL,
+  `vin` CHAR(17) NOT NULL,
+  `fabricante` VARCHAR(12) NOT NULL,
+  `modelo` VARCHAR(20) NOT NULL,
+  `año` YEAR(4) NOT NULL,
+  `color` VARCHAR(15) NOT NULL,
+  PRIMARY KEY (`idcoches`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`facturas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`facturas` (
+  `idfacturas` INT NOT NULL,
+  `facturasID` INT NULL,
+  `numerofactura` INT NOT NULL,
+  `fecha` DATE NOT NULL,
+  `clientes_idclientes` INT NOT NULL,
+  `vendedores_idvendedores` INT NOT NULL,
+  `coches_idcoches` INT NOT NULL,
+  PRIMARY KEY (`idfacturas`),
+  INDEX `fk_facturas_clientes1_idx` (`clientes_idclientes` ASC) VISIBLE,
+  INDEX `fk_facturas_vendedores1_idx` (`vendedores_idvendedores` ASC) VISIBLE,
+  INDEX `fk_facturas_coches1_idx` (`coches_idcoches` ASC) VISIBLE,
+  CONSTRAINT `fk_facturas_clientes1`
+    FOREIGN KEY (`clientes_idclientes`)
+    REFERENCES `mydb`.`clientes` (`idclientes`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_facturas_vendedores1`
+    FOREIGN KEY (`vendedores_idvendedores`)
+    REFERENCES `mydb`.`vendedores` (`idvendedores`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_facturas_coches1`
+    FOREIGN KEY (`coches_idcoches`)
+    REFERENCES `mydb`.`coches` (`idcoches`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
