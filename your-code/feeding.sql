@@ -20,10 +20,10 @@ insert into customer (id,customer_id,name,phone,email,address,city,`State/Provin
 values ('0' ,'10001','Pablo Picasso','654654','','Paseo de la Chopera, 14','Madrid','Madrid','Spain',28045);
 
 insert into customer (id,customer_id,name,phone,email,address,city,`State/Province`,country,postal)
-values ('1' ,'20001','Hedy Lamarr','654654','','Weiglgasse 10','Viena',Vienna,Austria,1150);
+values ('1' ,'20001','Hedy Lamarr','654654','','Weiglgasse 10','Viena','Vienna','Austria',1150);
 
 insert into customer (id,customer_id,name,phone,email,address,city,`State/Province`,country,postal)
-values ('2' ,'30001','Katherine Johnson','654654','','300 E St SW',Washington,'DC Washington','United States',28045);
+values ('2' ,'30001','Katherine Johnson','654654','','300 E St SW','Washington','DC Washington','United States',28045);
 
 insert into salesperson (idSalesperson,staff_id,Name,Store)
 values (0,00001,'Petey Cruiser','Madrid');
@@ -96,6 +96,7 @@ from invoices_has_salesperson;
 
 select * 
 from salesperson;
+
 
 
 
